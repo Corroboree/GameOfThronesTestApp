@@ -1,2 +1,2 @@
-include ':app'
+include ':Houses'
 rootProject.name='GoTHouses'
