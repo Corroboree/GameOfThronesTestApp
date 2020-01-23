@@ -34,8 +34,10 @@ dependencies {
     implementation libraries.androidx.appCompat
     implementation libraries.androidx.constraintLayout
     implementation libraries.androidx.lifecycleExtensions
+    implementation libraries.androidx.recyclerview
     implementation libraries.ktx.core
     implementation libraries.ktx.viewModelScope
+    implementation libraries.materialDesign
     //koin
     implementation libraries.koin.android
     implementation libraries.koin.viewModel
