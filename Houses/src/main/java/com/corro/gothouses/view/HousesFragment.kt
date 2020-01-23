@@ -33,10 +33,21 @@ class HousesFragment : Fragment() {
     }
 
     private fun initObserver() {
-        viewModel.houseList.observe(this, Observer {
-            with(list) {
-                layoutManager = LinearLayoutManager(context)
-                adapter = HouseRecyclerViewAdapter(it)
+        viewModel.loadingStatus.observe(this, Observer {
+
+            when (it) {
+                is HouseViewModel.Status.StartLoading -> {}
+                is HouseViewModel.Status.FinishLoading -> {
+                    viewSwitcher.showNext()
+                    with(list) {
+                        layoutManager = LinearLayoutManager(context)
+                        adapter = HouseRecyclerViewAdapter(it.list)
+                        addItemDecoration(MarginDividerItemDecoration(context, 24))
+                    }
+                }
+                is HouseViewModel.Status.ErrorLoading -> {
+                }
+                else -> Unit
             }
         })
     }

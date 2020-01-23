@@ -1,14 +1,11 @@
 package com.corro.gothouses.model
 
-import androidx.lifecycle.MutableLiveData
 import com.corro.gothouses.model.retrofit.HouseApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class HouseRepository(private val houseApi: HouseApi) {
-    var houseList = MutableLiveData<ArrayList<House>>()
+    private lateinit var cache: List<House>
 
-    suspend fun loadHouses() {
+    suspend fun loadHouses(): List<House> {
         var page = 0
         val cachingList = ArrayList<House>()
         val listComplete = ArrayList<House>()
@@ -20,8 +17,7 @@ class HouseRepository(private val houseApi: HouseApi) {
             listComplete.addAll(cachingList)
         } while (cachingList.size == 50)
 
-        withContext(Dispatchers.Main) {
-            houseList.value = listComplete
-        }
+        cache = listComplete
+        return listComplete
     }
 }
