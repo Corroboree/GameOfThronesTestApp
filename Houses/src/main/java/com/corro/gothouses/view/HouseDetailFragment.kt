@@ -39,7 +39,10 @@ class HouseDetailFragment : Fragment() {
             when (it) {
                 is HouseViewModel.Status.StartLoading -> {
                 }
-                is HouseViewModel.Status.FinishLoadingDetails -> showDetails(it.house)
+                is HouseViewModel.Status.FinishLoadingDetails -> {
+                    toolbar.title = it.house.name
+                    showDetails(it.house)
+                }
                 is HouseViewModel.Status.ErrorLoading -> {
                 }
                 else -> Unit
@@ -60,6 +63,11 @@ class HouseDetailFragment : Fragment() {
             layout_house_coat_of_arms.visibility = View.VISIBLE
             tv_details_coat_of_arms.text = it
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.loadingStatus.removeObservers(this)
     }
 
     companion object {

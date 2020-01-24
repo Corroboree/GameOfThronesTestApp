@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">GoTHouses</string>
 
+    <!-- Splash -->
+    <string name="splash_info">Houses are coming</string>
+
+    <!-- House list-->
+    <string name="toolbar_title">The mighty list of houses</string>
+
     <!-- Details -->
     <string name="details_name">Name</string>
     <string name="details_region">Region</string>

@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:paddingStart="24dp"
+        android:textStyle="bold"
         android:paddingEnd="24dp"
         android:textSize="16sp"
         tools:text="House Stark" />

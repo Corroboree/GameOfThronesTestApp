@@ -37,6 +37,7 @@ dependencies {
     implementation libraries.androidx.recyclerview
     implementation libraries.ktx.core
     implementation libraries.ktx.viewModelScope
+    implementation libraries.ktx.lifecycleScope
     implementation libraries.materialDesign
     //koin
     implementation libraries.koin.android

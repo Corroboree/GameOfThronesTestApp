@@ -15,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 /**
  * Created by Jan on 23.01.2020
  */
-class HousesFragment : Fragment(), View.OnClickListener {
+class HouseListFragment : Fragment(), View.OnClickListener {
 
     private val viewModel by viewModel<HouseViewModel>()
 
@@ -27,19 +27,21 @@ class HousesFragment : Fragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
         initObserver()
         viewModel.requestHouseList()
+        toolbar.title = getString(R.string.toolbar_title
+        )
     }
 
     private fun initObserver() {
         viewModel.loadingStatus.observe(this, Observer {
             when (it) {
                 is HouseViewModel.Status.StartLoading -> {
-                    viewSwitcher.displayedChild = 0
+                    progressbar.visibility = View.VISIBLE
                 }
                 is HouseViewModel.Status.FinishLoadingList -> {
-                    viewSwitcher.displayedChild = 1
+                    progressbar.visibility = View.INVISIBLE
                     with(list) {
                         layoutManager = LinearLayoutManager(context)
-                        adapter = HouseRecyclerViewAdapter(it.list, this@HousesFragment)
+                        adapter = HouseRecyclerViewAdapter(it.list, this@HouseListFragment)
                         addItemDecoration(MarginDividerItemDecoration(context, 24))
                     }
                 }
@@ -62,7 +64,6 @@ class HousesFragment : Fragment(), View.OnClickListener {
     }
 
     companion object {
-        fun newInstance() = HousesFragment()
-
+        fun newInstance() = HouseListFragment()
     }
 }

@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        replaceFragment(HousesFragment.newInstance())
+        replaceFragment(SplashFragment.newInstance())
     }
 
     fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false) {
