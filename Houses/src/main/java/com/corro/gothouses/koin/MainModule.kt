@@ -4,7 +4,6 @@ import android.app.Application
 import com.corro.gothouses.model.HouseRepository
 import com.corro.gothouses.model.retrofit.HouseApi
 import com.corro.gothouses.viewmodel.HouseViewModel
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
@@ -30,7 +29,6 @@ object MainModule {
             return Retrofit.Builder()
                 .baseUrl("https://anapioficeandfire.com/api/")
                 .addConverterFactory(JacksonConverterFactory.create())
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .client(client)
                 .build()
         }

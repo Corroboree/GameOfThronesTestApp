@@ -7,9 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.corro.gothouses.model.House
 import com.corro.gothouses.model.HouseRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class HouseViewModel(private val houseRepository: HouseRepository) : ViewModel() {
 
@@ -18,25 +16,36 @@ class HouseViewModel(private val houseRepository: HouseRepository) : ViewModel()
         get() = _loadingStatus
 
     init {
-        refresh()
+        houseRepository.houseList.observeForever {
+            _loadingStatus.value = Status.FinishLoadingList(it)
+        }
     }
 
-    fun refresh() {
+    fun requestHouseList() = viewModelScope.launch {
         _loadingStatus.value = Status.StartLoading
-        viewModelScope.launch {
-            try{
-                delay(2500)
-                _loadingStatus.value = Status.FinishLoading(withContext(Dispatchers.Default){houseRepository.loadHouses()})
-            }catch(e: Exception){
-                e.printStackTrace()
-                _loadingStatus.value = Status.ErrorLoading(e.message)
-            }
+        try {
+            launch(Dispatchers.Default) { houseRepository.refresh() }
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+            _loadingStatus.value = Status.ErrorLoading(e.message)
+        }
+    }
+
+    fun loadHouseDetails(id: Int) {
+        _loadingStatus.value = Status.StartLoading
+        val details = houseRepository.getHouseDetails(id)
+        _loadingStatus.value = if (details != null) {
+            Status.FinishLoadingDetails(details)
+        } else {
+            Status.ErrorLoading("")
         }
     }
 
     sealed class Status {
         object StartLoading : Status()
-        data class FinishLoading(val list: List<House>) : Status()
+        data class FinishLoadingList(val list: List<House>) : Status()
+        data class FinishLoadingDetails(val house: House) : Status()
         data class ErrorLoading(val error: String?) : Status()
     }
 }

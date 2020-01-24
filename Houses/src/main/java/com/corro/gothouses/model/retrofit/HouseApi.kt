@@ -8,5 +8,5 @@ import retrofit2.http.Query
 interface HouseApi {
 
     @GET("houses")
-    fun getHouses(@Query("page") page: Int, @Query("pageSize") pageSize: Int): Deferred<List<House>>
+    suspend fun getHouses(@Query("page") page: Int, @Query("pageSize") pageSize: Int): List<House>
 }

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GoTHouses</string>
+
+    <!-- Details -->
+    <string name="details_name">Name</string>
+    <string name="details_region">Region</string>
+    <string name="details_coat_of_arms">Coat of Arms</string>
+
 </resources>

@@ -44,7 +44,6 @@ dependencies {
     //3rd
     implementation libraries.retrofit.core
     implementation libraries.retrofit.jacksonConverter
-    implementation libraries.retrofit.coroutineAdapter
     //test
     testImplementation libraries.junit
     androidTestImplementation libraries.extjunit

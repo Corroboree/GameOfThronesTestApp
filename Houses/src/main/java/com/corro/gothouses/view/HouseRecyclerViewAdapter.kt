@@ -12,12 +12,12 @@ import kotlinx.android.synthetic.main.layout_simple_two_row_list_item.view.*
 /**
  * Created by Jan on 23.01.2020
  */
-class HouseRecyclerViewAdapter(private val data: List<House>) :
-    RecyclerView.Adapter<HouseRecyclerViewAdapter.ViewHolder>() {
+class HouseRecyclerViewAdapter(private val data: List<House>, private val listener: View.OnClickListener) :
+        RecyclerView.Adapter<HouseRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.layout_simple_two_row_list_item, parent, false)
+                .inflate(R.layout.layout_simple_two_row_list_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -27,10 +27,15 @@ class HouseRecyclerViewAdapter(private val data: List<House>) :
         val item = data[position]
         holder.houseName.text = item.name
         holder.houseRegion.text = item.region
+        holder.view.tag = item.url.substringAfterLast("/").toInt()
     }
 
-    inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val houseName: TextView = view.tv_house_name
         val houseRegion: TextView = view.tv_house_region
+
+        init {
+            view.setOnClickListener(listener)
+        }
     }
 }
