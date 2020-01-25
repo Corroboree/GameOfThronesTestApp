@@ -23,12 +23,12 @@ class HouseListFragment : Fragment(), View.OnClickListener {
         return inflater.inflate(R.layout.fragment_house_list, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        list.adapter = HouseRecyclerViewAdapter(listener=this)
         initObserver()
-        viewModel.requestHouseList()
-        toolbar.title = getString(R.string.toolbar_title
-        )
+//        viewModel.requestHouseList()
+        toolbar.title = getString(R.string.toolbar_title)
     }
 
     private fun initObserver() {
@@ -41,7 +41,10 @@ class HouseListFragment : Fragment(), View.OnClickListener {
                     progressbar.visibility = View.INVISIBLE
                     with(list) {
                         layoutManager = LinearLayoutManager(context)
-                        adapter = HouseRecyclerViewAdapter(it.list, this@HouseListFragment)
+                        with(adapter as HouseRecyclerViewAdapter){
+                            data = it.list
+                            notifyDataSetChanged()
+                        }
                         addItemDecoration(MarginDividerItemDecoration(context, 24))
                     }
                 }

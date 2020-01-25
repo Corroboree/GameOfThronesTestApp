@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.layout_simple_two_row_list_item.view.*
 /**
  * Created by Jan on 23.01.2020
  */
-class HouseRecyclerViewAdapter(private val data: List<House>, private val listener: View.OnClickListener) :
+class HouseRecyclerViewAdapter(var data: List<House> = listOf(), private val listener: View.OnClickListener) :
         RecyclerView.Adapter<HouseRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

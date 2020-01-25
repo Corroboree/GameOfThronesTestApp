@@ -15,7 +15,7 @@ class MarginDividerItemDecoration(context: Context, leftMarginDp: Int = 0, right
     private val divider = ContextCompat.getDrawable(context, R.drawable.custom_divider)
     private val leftMarginPx = dpToPx(context, leftMarginDp)
     private val rightMarginPx = dpToPx(context, rightMarginDp)
-    var setForLastItem: Boolean = true
+    private var setForLastItem: Boolean = true
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)

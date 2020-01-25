@@ -1,6 +1,7 @@
 package com.corro.gothouses.koin
 
 import android.app.Application
+import com.corro.gothouses.BuildConfig
 import com.corro.gothouses.model.HouseRepository
 import com.corro.gothouses.model.retrofit.HouseApi
 import com.corro.gothouses.viewmodel.HouseViewModel
@@ -27,7 +28,7 @@ object MainModule {
 
         fun provideRetrofit(client: OkHttpClient): Retrofit {
             return Retrofit.Builder()
-                .baseUrl("https://anapioficeandfire.com/api/")
+                .baseUrl(BuildConfig.API_URL)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .client(client)
                 .build()

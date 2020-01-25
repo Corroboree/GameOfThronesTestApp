@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.corro.gothouses.model.retrofit.HouseApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 class HouseRepository(private val houseApi: HouseApi) {
     private var cache: HashMap<Int, House>? = null
@@ -28,9 +29,7 @@ class HouseRepository(private val houseApi: HouseApi) {
             }
         } while (cachingList.size == 50)
 
-        withContext(Dispatchers.Main) {
-            _houseList.value = ArrayList<House>(cache!!.values)
-        }
+        _houseList.postValue(ArrayList<House>(cache!!.values))
     }
 
     fun getHouseDetails(id: Int): House? {
